@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Github Issue Tracker | Login</title>
+    <title>GitHub Issue Tracker | Login</title>
 
+    <!-- favicon -->
     <link
       rel="shortcut icon"
       href="./assets/github-logo.png"
@@ -44,25 +45,66 @@
   </head>
 
   <body>
-    <main
-      class="card w-[60%] max-w-md shrink-0 shadow-2xl mx-auto m-34"
-    >
-        <div class=" bg-base-100 rounded-lg">
-          <div class="hero-content flex-col lg:flex-row-reverse">
+    <main class="card w-[60%] max-w-md shrink-0 shadow-xl mx-auto m-34">
+      <div class="bg-base-100 rounded-lg">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+          <div class="flex justify-center items-center flex-col text-center">
+            <img src="./assets/github-logo.png" alt="" />
+            <h2 class="text-2xl font-semibold mt-6">GitHub Issues Tracker</h2>
+            <p class="text-[#64748bFF]">Sign in to manage your issues</p>
+          </div>
 
-            <div class="flex justify-center items-center flex-col text-center">
-              <img src="./assets/github-logo.png" alt="" />
-              <h2 class="text-2xl font-semibold mt-6">GitHub Issues Tracker</h2>
-              <p class="text-[#64748bFF]">Sign in to manage your issues</p>
+          <div class="w-full p-2">
+            <div class="">
+              <fieldset class="fieldset">
+                <label class="label text-[16px] font-medium text-[#1f2937]"
+                  >Username</label
+                >
+                <input
+                  id="input-username"
+                  type="text"
+                  class="input w-full"
+                  placeholder="Enter Username"
+                />
+                <p class="text-[#64748bFF] text-xs">Default: admin</p>
+
+                <label class="label text-[16px] font-medium text-[#1f2937]"
+                  >Password</label
+                >
+                <input
+                  id="input-password"
+                  type="password"
+                  class="input w-full"
+                  placeholder="Enter Password"
+                />
+                <p class="text-[#64748bFF] text-xs">Default: admin123</p>
+
+                <button id="signIn-btn" class="btn btn-primary mt-4">
+                  Sign In
+                </button>
+              </fieldset>
+
+              <div class="flex items-center justify-center mt-5">
+                <p class="flex-grow border-b-2 border-[#e4e4e7]"></p>
+                <p class="text-[#64748bFF] px-3 text-center">OR</p>
+                <p class="flex-grow border-b-2 border-[#e4e4e7]"></p>
+              </div>
+
+              <div class="text-center mt-5 space-y-2">
+                <p class="text-sm text-[#64748bFF]">Demo Credentials:</p>
+                <div class="bg-base-200 p-6 rounded-lg">
+                  <p>Username: <span class="text-[#64748bFF]">admin</span></p>
+                  <p>
+                    Password: <span class="text-[#64748bFF]">admin123</span>
+                  </p>
+                </div>
+              </div>
             </div>
-            
-            
           </div>
         </div>
+      </div>
     </main>
 
-
     <script src="./scripts/login.js"></script>
-
   </body>
 </html>
