@@ -4,6 +4,14 @@ let allIssuesCount = 0;
 let openIssuesCount = 0;
 let closedIssuesCount = 0;
 
+const showLoading = () => {
+    
+}
+
+const hideLoading = () => {
+    
+}
+
 // update issue count
 const issueCountUpdate = (filter) => {
     const issueCount = document.getElementById("issue-count");
@@ -96,7 +104,7 @@ const displayIssues = (issues) => {
 
                 <div class="flex justify-between items-center">
                     <img class="w-6" src="${issue.status === 'open' ? "./assets/Open-Status.png" : "./assets/Closed- Status .png"}" alt="">
-                    <div class="badge badge-soft ${issue.priority === 'high' ? "badge-error" : issue.priority === 'medium' ? "badge-warning" : "badge-[bg-[#eeeff2FF]]"} text-xs font-medium rounded-full">${issue.priority.toUpperCase()}</div>
+                    <div class="badge badge-soft ${issue.priority === 'high' ? "badge-error" : issue.priority === 'medium' ? "badge-warning" : "badge-low"} text-xs font-medium rounded-full">${issue.priority.toUpperCase()}</div>
                 </div>
 
                 <div>
@@ -159,7 +167,7 @@ document.getElementById('input-search').addEventListener("input", async(event) =
 })
 
 
-//Show Modal when a issue card clicked
+//Show Modal when an issue card clicked
 const showIssueModal = async(issueId) => {
     
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueId}`);
@@ -170,6 +178,66 @@ const showIssueModal = async(issueId) => {
 }
 
 const displayIssueModal = (issue) => {
+    const issueModalContainer = document.getElementById('modalContainer');
+    // issueModal.innerHTML = '';
+
+    // load Badges
+    const badgesHTML = issue.labels.map(label => {
+        if (!label) {
+            return "";
+        }
+        else {
+            return `
+                <div class="badge bg-[#FDE68A] badge- text-xs font-medium rounded-full">
+                    ${label.toUpperCase()}
+                </div>
+            `;
+        }
+    });
+
+    issueModalContainer.innerHTML = `
+    <dialog id="issueModal" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box space-y-6">
+
+            <div class="space-y-2">
+                <h3 class="text-[24px] font-bold">${issue.title}</h3>
+
+                <div class="flex gap-2 text-xs items-center">
+                    <div id="modalStatus" class="badge ${issue.status === 'open' ? "badge-success" : "badge-closed"} rounded-full font-medium">${issue.status === 'open' ? "Opened" : "Closed"}</div>•
+
+                    <p class="text-[#64748b]">Opened by <span id="modalAssignee">${issue.assignee? issue.assignee : "No one yet"}</span></p>•
+
+                    <p  class="text-[#64748b]">${issue.updatedAt.split('T')[0]}</p>
+                </div>
+            </div>
+
+            <div class="flex gap-1 flex-wrap items-center">
+                ${badgesHTML.join('')}
+            </div>
+
+            <p class=" text-[#64748b]">${issue.description}</p>
+
+            <div class="p-4 flex justify-between items-center bg-base-200 rounded-lg">
+                <div class="flex-1">
+                    <p class="text-[#64748b]">Assignee:</p>
+                    <h3 class="font-semibold">${issue.assignee? issue.assignee : "No one yet"}</h3>
+                </div>  
+                <div class="flex-1">
+                    <p class="text-[#64748b]">Priority:</p>
+                    <div class="badge ${issue.priority === 'high' ? "badge-error" : issue.priority === 'medium' ?"badge-warning" :"badge-low"} rounded-full font-medium">${issue.priority.toUpperCase()}</div>
+                </div>
+            </div>
+
+            <div class="modal-action">
+            <form method="dialog">
+                
+                <button class="btn btn-primary">Close</button>
+            </form>
+            </div>
+        </div>
+    </dialog>
+    `;
+
     const issueModal = document.getElementById('issueModal');
     issueModal.showModal();
 }

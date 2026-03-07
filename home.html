@@ -41,7 +41,20 @@
       * {
         font-family: "Geist", sans-serif;
       }
+
+      .badge-closed{
+        background-color: #a855f7FF;
+        color: rgb(31, 15, 46);
+        font-weight: 400;
+      }
+
+      .badge-low{
+        background-color: #eeeff2FF;
+        color: #9ca3afFF;
+        font-weight: 400;
+      }
     </style>
+    
   </head>
 
 
@@ -112,7 +125,7 @@
         <section class="card bg-base-200 shadow-sm">
             <div class="p-6">
                 
-                <div id="issueContainer" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div id="issueContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <!-- dynamically issue cards will be loaded here -->
 
                 </div>
@@ -121,19 +134,47 @@
         </section>
 
         <!-- Issue details modal -->
-        <dialog id="issueModal" class="modal modal-bottom sm:modal-middle">
-            <div class="modal-box">
-                <h3 class="text-lg font-bold">Hello!</h3>
-                <p class="py-4">Press ESC key or click the button below to close</p>
-                <div class="modal-action">
-                <form method="dialog">
-                    <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn btn-primary">Close</button>
-                </form>
+        <div id="modalContainer">
+            <!-- modal loads dynamically here -->
+            <!-- <dialog  class="modal modal-bottom sm:modal-middle">
+                <div class="modal-box space-y-6">
+    
+                    <div class="space-y-2">
+                        <h3 id="modalTitle" class="text-[24px] font-bold">Fix broken image uploads</h3>
+                        <div class="flex gap-2 text-xs items-center">
+                            <div id="modalStatus" class="badge badge-success rounded-full font-medium">Opened</div>•
+                            <p class="text-[#64748b]">Opened by <span id="modalAssignee">Fahim Ahmed</span></p>•
+                            <p id="modalUpdateAt" class="text-[#64748b]">22/02/2026</p>
+                        </div>
+                    </div>
+    
+                    <div id="modalLabels" class="pb-4 flex gap-1 flex-wrap">
+    
+                    </div>
+    
+                    <p class="py-4 text-[#64748b]">The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.</p>
+    
+                    <div class="p-4 flex justify-between items-center bg-base-200 rounded-lg">
+                        <div class="flex-1">
+                            <p class="text-[#64748b]">Assignee:</p>
+                            <h3 class="font-semibold">Fahim Ahmed</h3>
+                        </div>  
+                        <div class="flex-1">
+                            <p class="text-[#64748b]">Priority:</p>
+                            <div class="badge badge-error rounded-full font-medium">High</div>
+                        </div>
+                    </div>
+    
+                    <div class="modal-action">
+                    <form method="dialog">
+                        
+                        <button class="btn btn-primary">Close</button>
+                    </form>
+                    </div>
                 </div>
-            </div>
-        </dialog>
-        
+            </dialog> -->
+        </div>
+    
         
     </main>
     
