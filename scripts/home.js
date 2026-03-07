@@ -52,6 +52,8 @@ const activeFilterBtn = (id) => {
 
 }
 
+
+// load and display issue cards
 const loadIssues = async() => {
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
     const json = await res.json();
@@ -89,7 +91,7 @@ const displayIssues = (issues) => {
 
         // load issue card content
         issueCard.innerHTML = `
-        <div class="card bg-base-100 w-full shadow-sm h-full">
+        <div onclick="showIssueModal(${issue.id})" class="card bg-base-100 w-full shadow-sm h-full">
             <div class="m-4 space-y-3">
 
                 <div class="flex justify-between items-center">
@@ -133,3 +135,41 @@ const countFilteredIssues = (allIssues) => {
 }
 
 
+//Search Functionality with count update
+document.getElementById('input-search').addEventListener("input", async(event) => {
+    const searchText = event.target.value.trim();
+    // console.log(searchText);
+
+    if (searchText === "") {
+        issueCountUpdate("all");
+        displayIssues(allIssues);
+        return;
+    }
+
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`);
+    const json = await res.json();
+    // console.log(json.data);
+
+    const filtered = json.data.filter(issue => issue.title.toLowerCase().includes(searchText.toLowerCase()));
+    displayIssues(filtered);
+
+    const FilteredissueCount = document.getElementById("issue-count");
+    FilteredissueCount.innerText = filtered.length;
+
+})
+
+
+//Show Modal when a issue card clicked
+const showIssueModal = async(issueId) => {
+    
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueId}`);
+    const json = await res.json();
+    // console.log(json.data);
+    displayIssueModal(json.data);
+    
+}
+
+const displayIssueModal = (issue) => {
+    const issueModal = document.getElementById('issueModal');
+    issueModal.showModal();
+}
