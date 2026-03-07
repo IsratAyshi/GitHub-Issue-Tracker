@@ -1,35 +1,79 @@
 
-const allIssues = [];
+let allIssues = [];
 let allIssuesCount = 0;
 let openIssuesCount = 0;
 let closedIssuesCount = 0;
 
+// update issue count
+const issueCountUpdate = (filter) => {
+    const issueCount = document.getElementById("issue-count");
+
+    if (filter === "all") {
+        issueCount.innerText = allIssuesCount;
+    }
+    else if (filter === "open") {
+        issueCount.innerText = openIssuesCount;
+    }
+    else if (filter === "closed") {
+        issueCount.innerText = closedIssuesCount;
+    }
+}
+
+// update active filter button color
+const activeFilterBtn = (id) => {
+    const activeBtn = document.getElementById(id);
+    // console.log(activeBtn);
+
+    const allBtn = document.getElementById("all-btn");
+    const openBtn = document.getElementById("open-btn");
+    const closedBtn = document.getElementById("closed-btn");
+
+    allBtn.classList.remove("btn-primary", "text-white");
+    openBtn.classList.remove("btn-primary", "text-white");
+    closedBtn.classList.remove("btn-primary", "text-white");
+
+    if (activeBtn === allBtn) {
+        allBtn.classList.add("btn-primary", "text-white");
+        issueCountUpdate("all");
+        displayIssues(allIssues);
+    }
+    else if (activeBtn === openBtn) {
+        openBtn.classList.add("btn-primary", "text-white");
+        issueCountUpdate("open");
+
+        displayIssues(allIssues.filter(issue => issue.status === "open"));
+    }
+    else if (activeBtn === closedBtn) {
+        closedBtn.classList.add("btn-primary", "text-white");
+        issueCountUpdate("closed");
+
+        displayIssues(allIssues.filter(issue => issue.status === "closed"));
+    }
+
+}
+
 const loadIssues = async() => {
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
     const json = await res.json();
-    allIssuesCount = json.data.length;
+    allIssues = json.data;
     displayIssues(json.data);
+
+    countFilteredIssues(allIssues);
     
 }
 loadIssues();
 
 const displayIssues = (issues) => {
-    
     const issueContainer = document.getElementById('issueContainer');
     issueContainer.innerHTML = "";
 
     issues.forEach(issue => {
-
-        if (issue.status === "open") {
-            openIssuesCount++;
-        }
-        else {
-            closedIssuesCount++;
-        }
+        // allIssues.push(issue);
 
         const issueCard = document.createElement('div');
         issueCard.className = `card bg-white shadow-sm ${issue.status === 'open' ? "border-t-2 border-[#00a96eFF]" : "border-t-2 border-[#a855f7FF]"} `;
 
+        // load Badges
         const badgesHTML = issue.labels.map(label => {
             if (!label) {
                 return "";
@@ -43,6 +87,7 @@ const displayIssues = (issues) => {
             }
         });
 
+        // load issue card content
         issueCard.innerHTML = `
         <div class="card bg-base-100 w-full shadow-sm h-full">
             <div class="m-4 space-y-3">
@@ -71,13 +116,20 @@ const displayIssues = (issues) => {
 
         issueContainer.appendChild(issueCard);
     })
-
-    console.log(allIssuesCount);
-    console.log(openIssuesCount);
-    console.log(closedIssuesCount);
 }
 
+// count issues category wise when a filter button is clicked
+const countFilteredIssues = (allIssues) => {
+    // console.log(allIssues);
 
+    const openIssues = allIssues.filter(issue => issue.status === "open");
+    const closedIssues = allIssues.filter(issue => issue.status === "closed");
 
+    allIssuesCount = allIssues.length;
+    openIssuesCount = openIssues.length;
+    closedIssuesCount = closedIssues.length;
+
+    issueCountUpdate("all");
+}
 
 

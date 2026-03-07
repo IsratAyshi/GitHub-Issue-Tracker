@@ -58,7 +58,7 @@
                         <i class="fa-solid fa-magnifying-glass opacity-60"></i>
                         <input id="input-search" type="text" placeholder="Search issues..."/>
                     </label>
-                    <button id="btn-search" class="btn btn-primary join-item">Search</button>
+                    <button class="btn btn-primary ">+ New Issue</button>
                 </div>
             </div>
         </nav>
@@ -69,11 +69,11 @@
         <!-- top buttons -->
         <section class="card bg-base-100 mt-[60px] shadow-sm">
             <div class="card-body flex-row gap-2">
-                <button class="btn btn-primary text-white px-9" id="all-filter-btn">All</button>
+                <button onclick="activeFilterBtn('all-btn')" id="all-btn" class="btn btn-primary text-white px-9" id="all-filter-btn">All</button>
 
-                <button class="btn  bg-white px-9" id="interview-filter-btn">Open</button>
+                <button onclick="activeFilterBtn('open-btn')"  id="open-btn" class="btn px-9" id="interview-filter-btn">Open</button>
 
-                <button class="btn  bg-white px-9" id="rejected-filter-btn">Closed</button>
+                <button onclick="activeFilterBtn('closed-btn')"  id="closed-btn" class="btn px-9" id="rejected-filter-btn">Closed</button>
             </div>
         </section>
 
@@ -114,7 +114,7 @@
                 
                 <div id="issueContainer" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <!-- dynamically issue cards will be loaded here -->
-                 
+
                 </div>
 
             </div>
