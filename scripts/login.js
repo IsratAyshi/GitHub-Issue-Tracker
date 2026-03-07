@@ -10,5 +10,6 @@ document.getElementById("signIn-btn").addEventListener("click", () => {
     window.location.assign("./home.html");
   } else {
     alert("Invalid username or password");
+    return;
   }
 });
