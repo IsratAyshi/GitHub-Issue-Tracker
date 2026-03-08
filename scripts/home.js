@@ -5,10 +5,15 @@ let openIssuesCount = 0;
 let closedIssuesCount = 0;
 
 const showLoading = () => {
-    
+    const loading = document.getElementById("loadingSpinner");
+    loading.classList.remove("hidden");
+
+    document.getElementById("issueContainer").innerHTML = "";
 }
 
 const hideLoading = () => {
+    const loading = document.getElementById("loadingSpinner");
+    loading.classList.add("hidden");
     
 }
 
@@ -31,7 +36,6 @@ const issueCountUpdate = (filter) => {
 const activeFilterBtn = (id) => {
     const activeBtn = document.getElementById(id);
     // console.log(activeBtn);
-
     const allBtn = document.getElementById("all-btn");
     const openBtn = document.getElementById("open-btn");
     const closedBtn = document.getElementById("closed-btn");
@@ -40,6 +44,7 @@ const activeFilterBtn = (id) => {
     openBtn.classList.remove("btn-primary", "text-white");
     closedBtn.classList.remove("btn-primary", "text-white");
 
+    showLoading();
     if (activeBtn === allBtn) {
         allBtn.classList.add("btn-primary", "text-white");
         issueCountUpdate("all");
@@ -63,10 +68,15 @@ const activeFilterBtn = (id) => {
 
 // load and display issue cards
 const loadIssues = async() => {
+    showLoading();
+
     const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
     const json = await res.json();
     allIssues = json.data;
+
+    // hideLoading();
     displayIssues(json.data);
+    
 
     countFilteredIssues(allIssues);
     
@@ -126,6 +136,7 @@ const displayIssues = (issues) => {
 
         issueContainer.appendChild(issueCard);
     })
+    hideLoading();
 }
 
 // count issues category wise when a filter button is clicked
@@ -154,11 +165,16 @@ document.getElementById('input-search').addEventListener("input", async(event) =
         return;
     }
 
+    showLoading();
+
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`);
     const json = await res.json();
     // console.log(json.data);
 
+    // filter issues based on titles including search text
     const filtered = json.data.filter(issue => issue.title.toLowerCase().includes(searchText.toLowerCase()));
+
+    hideLoading();
     displayIssues(filtered);
 
     const FilteredissueCount = document.getElementById("issue-count");
