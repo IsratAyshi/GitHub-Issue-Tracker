@@ -100,7 +100,7 @@ const displayIssues = (issues) => {
             }
             else {
                 return `
-                    <div class="badge bg-[#FDE68A] badge- text-xs font-medium rounded-full">
+                    <div class="badge ${label === 'bug' ? "bg-[#fecaca]" : label === 'enhancement' ? "bg-[#bbf7d0]" : label === 'help wanted' ? "bg-[#fde68a]" : label === 'documentation' ? "bg-[#f0e2ff]" : "bg-[#9ccfff]"} badge- text-xs font-medium rounded-full">
                         ${label.toUpperCase()}
                     </div>
                 `;

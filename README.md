@@ -10,19 +10,19 @@
 
 ### 2️⃣ What is the spread operator (...)?
 
--- 
+-- Spread operator is used to expand an array, string or object into individual elements or properties. It helps to avoid complex loops or concatenation and simplifies the code, making it more readable.
 
 ### 3️⃣ What is the difference between map(), filter(), and forEach()?
 
--- 
+-- map() applies a function to each element of an array and returns a new array without modifying the original. In contrast, filter() returns a new array that contains all elements that fullfill a condition passed to it, while forEach() applies a given function for each element in an array but doesn't return anything.
 
 ### 4️⃣ What is an arrow function?
 
--- 
+-- Arrow functions is a concise way of ES6 to declare a function in JavaScript. It is defined using the => notation, to make the code more compact and readable by removing the function and return keywords. Arrow functions are ideal for callbacks because they dont have their own 'this' but inherit 'this' from its parent scope.
 
 ### 5️⃣ What are template literals?
 
---
+-- Template literals are a JS feature that allow embed expressions and variables dynamically into strings using backticks(``) insted of double or single quotes. They are useful becasue they allow multiline strings and easily include variables and expressions inside them using only ${}.
 
 ---
 
